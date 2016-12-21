@@ -30,3 +30,10 @@ export const trace = msg => val => {
   return val;
 };
 
+// markUpdats :: Array Obj -> Array Obj
+export const markUpdates = update => (
+    update.map(el => Object.assign(el, { isUpdate: true }))
+);
+
+export const concat = first => second => first.concat(second);
+

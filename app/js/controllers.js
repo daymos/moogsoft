@@ -8,30 +8,30 @@ import { updateDom, clearAll } from './updateViewHelpers.js';
 
 // list :: Object -> undefined
 export const list = current => H.compose(
-   updateDom,
+  updateDom,
   H.renderHistory,
   H.genArrayOfLiComponents(H.renderInvite),
   H.parse,
 )(current);
 
 
-export const renderUpdate = _.curry((history, update) => {
+export const mergeData = _.curry((history, update) => {
   // in here prep data and then call list
-  console.log
-console.log(history)
-console.log('----------------------------------------')
-console.log('----------------------------------------')
-console.log(update)
+  return H.compose( 
+    H.mergeRepeatedObjects,
+    H.sort,
+    H.concat(JSON.parse(history)),
+    H.markUpdates)(JSON.parse(update))
 })
 
 
 export const run = () => {
   db.getData('history')
-  .fork(err => console.log(err), list )
+    .fork(err => console.log(err), list )
 }
 
 export const fetchUpdate = () => {
-  Task.of(renderUpdate)
+  Task.of(mergeData)
     .ap(db.getData('history'))
     .ap(db.getData('update'))
     .fork(err => console.log(err),res => console.log(res) )
