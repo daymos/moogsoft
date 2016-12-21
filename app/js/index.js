@@ -6,5 +6,6 @@ import * as db from './db';
 
 window.onload = () => {
   ctrls.run()
+  ctrls.fetchUpdate()
 };
 

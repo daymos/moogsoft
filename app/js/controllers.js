@@ -1,4 +1,7 @@
  /* eslint-disable */
+import Task from 'data.task'
+import _ from 'ramda'
+
 import * as db from './db';
 import * as H from './helpers';
 import { updateDom, clearAll } from './updateViewHelpers.js';
@@ -7,21 +10,30 @@ import { updateDom, clearAll } from './updateViewHelpers.js';
 export const list = current => H.compose(
    updateDom,
   H.renderHistory,
-  H.trace('rendered lis: '),
   H.genArrayOfLiComponents(H.renderInvite),
-  H.trace('parsed data: '),
   H.parse,
 )(current);
 
 
-// updateHistoryModel Object history -> Object update -> Object current
-export const updateHistoryModel = (update) => {
-}
+export const renderUpdate = _.curry((history, update) => {
+  // in here prep data and then call list
+  console.log
+console.log(history)
+console.log('----------------------------------------')
+console.log('----------------------------------------')
+console.log(update)
+})
+
 
 export const run = () => {
   db.getData('history')
   .fork(err => console.log(err), list )
-  
-
-
 }
+
+export const fetchUpdate = () => {
+  Task.of(renderUpdate)
+    .ap(db.getData('history'))
+    .ap(db.getData('update'))
+    .fork(err => console.log(err),res => console.log(res) )
+}
+
