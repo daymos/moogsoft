@@ -1,0 +1,29 @@
+{
+  "name": "invites",
+  "version": "1.0.0",
+  "description": "ui for notification feed",
+  "main": "index.html",
+  "scripts": {
+    "lint": "eslint .",
+    "build": "npm run clean && npm run copy-files && webpack",
+    "copy-files": "cp app/index.html dist/index.html",
+    "clean": "rm -rf dist/*",
+    "dev": "npm run clean && npm run copy-files && webpack --watch --inline --progress",
+    "precommit": "npm run lint"
+  },
+  "author": "Mattia Spinelli <matt.321null@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0",
+    "webpack": "^1.14.0"
+  },
+  "dependencies": {
+    "data.task": "^3.1.1",
+    "jquery": "^3.1.1"
+  }
+}
