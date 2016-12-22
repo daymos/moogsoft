@@ -1,3 +1,35 @@
-.ulcontainer {
-  color: blue;
+.container {
+  margin: 0 auto;
+  width: 300px;
+  color: #e6e1dc;
+}
+
+.old {
+  background-color: #a5c261;
+
+}
+
+.update {
+  background-color:#cc7833;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 20px;
+  margin: 5px auto;
+  border-radius: 10px;
+  border: 2px solid #6691AF;
+  color: black;
+}
+
+body {
+  background-color: #2b2b2b;
+}
+
+.sender_id {
+  font-weight: bold; 
+  font-size: 10px;
 }
