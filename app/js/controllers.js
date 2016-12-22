@@ -42,6 +42,6 @@ export const fetchUpdate = () => {
   Task.of(mergeData)
     .ap(db.getData('history'))
     .ap(db.getData('update'))
-    .fork(err => console.log(err),res => console.log(res) )
+    .fork(err => console.log(err),res =>{ console.log(res); list(res)} )
 }
 

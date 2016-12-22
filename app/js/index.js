@@ -6,6 +6,6 @@ import * as db from './db';
 
 window.onload = () => {
   ctrls.run()
-  ctrls.fetchUpdate()
+  setTimeout( ctrls.fetchUpdate, 2000)
 };
 

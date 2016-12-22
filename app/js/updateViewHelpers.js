@@ -1,5 +1,9 @@
 import $ from 'jquery';
 
-export const updateDom = (el) => $('.ulcontainer').append(el);
 
-export const clearAll = (target) => () => $(target).remove();
+export const clearAll = target => $(target).empty();
+
+export const updateDom = el => {
+  clearAll('.ulcontainer');
+  $('.ulcontainer').append(el);
+};

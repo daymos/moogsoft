@@ -7,7 +7,7 @@ export const compose = (...args) => value => args.reverse().reduce((acc, fn) => 
 export const stringify = data => JSON.stringify(data);
 
 // parse :: String -> Object
-export const parse = data => JSON.parse(data);
+export const parse = data => ((typeof data === 'string') ? JSON.parse(data) : data);
 
 // updateView :: Object -> String DomElement
 export const renderInvite = invite => (
@@ -28,7 +28,7 @@ export const renderHistory = history => (
 export const genArrayOfLiComponents = fn => data => data.map(fn);
 
 export const trace = msg => val => {
-  console.log(msg, val, typeof val);
+  console.log(msg, typeof val , val);
   return val;
 };
 
