@@ -81,7 +81,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.fetchUpdate = exports.run = exports.mergeData = exports.list = undefined;
+	exports.fetchUpdate = exports.run = exports.mergeData = exports.mergeRepeatedObjects = exports.list = undefined;
 	
 	var _data = __webpack_require__(7);
 	
@@ -109,9 +109,17 @@
 	var list = exports.list = function list(current) {
 	  return H.compose(_updateViewHelpers.updateDom, H.renderHistory, H.genArrayOfLiComponents(H.renderInvite), H.parse)(current);
 	}; /* eslint-disable */
+	var mergeRepeatedObjects = exports.mergeRepeatedObjects = function mergeRepeatedObjects(sorted) {
+	  return sorted.reduce(function (acc, el, i, sorted) {
+	    return i < sorted.length - 1 && el.invite_id === sorted[i + 1].invite_id && !el.isUpdate ? acc.concat([_ramda2.default.merge(el, sorted[i + 1])]) : i < sorted.length - 1 && el.invite_id === sorted[i + 1].invite_id && el.isUpdate ? acc.concat([_ramda2.default.merge(sorted[i + 1], el)]) : el.invite_id === sorted[i - 1].invite_id ? acc : acc.concat([el]);
+	  }, []);
+	};
+	
 	var mergeData = exports.mergeData = _ramda2.default.curry(function (history, update) {
-	  // in here prep data and then call list
-	  return H.compose(H.sort, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update));
+	  return (
+	    // in here prep data and then call list
+	    H.compose(H.mergeRepeatedObjects, H.sortByInviteId, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update))
+	  );
 	});
 	
 	var run = exports.run = function run() {
@@ -19782,72 +19790,90 @@
 
 /***/ },
 /* 14 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	   value: true
+	  value: true
 	});
+	exports.mergeRepeatedObjects = exports.sortByInviteId = exports.concat = exports.markUpdates = exports.trace = exports.genArrayOfLiComponents = exports.renderHistory = exports.renderInvite = exports.parse = exports.stringify = exports.compose = undefined;
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /*eslint-disable*/
+	
+	
+	var _ramda = __webpack_require__(13);
+	
+	var _ = _interopRequireWildcard(_ramda);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	var compose = exports.compose = function compose() {
-	   for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	   }
+	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	    args[_key] = arguments[_key];
+	  }
 	
-	   return function (value) {
-	      return args.reverse().reduce(function (acc, fn) {
-	         return fn(acc);
-	      }, value);
-	   };
+	  return function (value) {
+	    return args.reverse().reduce(function (acc, fn) {
+	      return fn(acc);
+	    }, value);
+	  };
 	};
 	
 	// stringify ::  Object -> String
 	var stringify = exports.stringify = function stringify(data) {
-	   return JSON.stringify(data);
+	  return JSON.stringify(data);
 	};
 	
 	// parse :: String -> Object
 	var parse = exports.parse = function parse(data) {
-	   return JSON.parse(data);
+	  return JSON.parse(data);
 	};
 	
 	// updateView :: Object -> String DomElement
 	var renderInvite = exports.renderInvite = function renderInvite(invite) {
-	   return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'sender_id\'>from ' + invite.sender_id + '</div>\n  <div class=\'invite\'>' + invite.invite + '</div>\n  <div class=\'vector\'>' + invite.vector + '</div>\n  <div class=\'time\'>sent at ' + new Date(invite.invite_time) + '</div>\n  <div class=\'status\'>status ' + invite.status + '</div>\n  </li>';
+	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'sender_id\'>from ' + invite.sender_id + '</div>\n  <div class=\'invite\'>' + invite.invite + '</div>\n  <div class=\'vector\'>' + invite.vector + '</div>\n  <div class=\'time\'>sent at ' + new Date(invite.invite_time) + '</div>\n  <div class=\'status\'>status ' + invite.status + '</div>\n  </li>';
 	};
 	
 	// encapsulateLiInsideUl :: String DomEl -> String DomEl
 	var renderHistory = exports.renderHistory = function renderHistory(history) {
-	   return '<ul id=\'history\'>' + history.join('') + '</ul>';
+	  return '<ul id=\'history\'>' + history.join('') + '</ul>';
 	};
 	// genUlComponent :: fn -> Functor -> Functor Object
 	var genArrayOfLiComponents = exports.genArrayOfLiComponents = function genArrayOfLiComponents(fn) {
-	   return function (data) {
-	      return data.map(fn);
-	   };
+	  return function (data) {
+	    return data.map(fn);
+	  };
 	};
 	
 	var trace = exports.trace = function trace(msg) {
-	   return function (val) {
-	      console.log(msg, val, typeof val === 'undefined' ? 'undefined' : _typeof(val));
-	      return val;
-	   };
+	  return function (val) {
+	    console.log(msg, val, typeof val === 'undefined' ? 'undefined' : _typeof(val));
+	    return val;
+	  };
 	};
 	
 	// markUpdats :: Array Obj -> Array Obj
 	var markUpdates = exports.markUpdates = function markUpdates(update) {
-	   return update.map(function (el) {
-	      return Object.assign(el, { isUpdate: true });
-	   });
+	  return update.map(function (el) {
+	    return Object.assign(el, { isUpdate: true });
+	  });
 	};
 	
 	var concat = exports.concat = function concat(first) {
-	   return function (second) {
-	      return first.concat(second);
-	   };
+	  return function (second) {
+	    return first.concat(second);
+	  };
+	};
+	
+	var sortByInviteId = exports.sortByInviteId = function sortByInviteId(concatenated) {
+	  return _.sortBy(_.prop('invite_id'))(concatenated);
+	};
+	
+	var mergeRepeatedObjects = exports.mergeRepeatedObjects = function mergeRepeatedObjects(sorted) {
+	  return sorted.reduce(function (acc, el, i, arr) {
+	    return i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && !el.isUpdate ? acc.concat([_.merge(el, arr[i + 1])]) : i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && el.isUpdate ? acc.concat([_.merge(arr[i + 1], el)]) : el.invite_id === arr[i - 1].invite_id ? acc : acc.concat([el]);
+	  }, []);
 	};
 
 /***/ }
