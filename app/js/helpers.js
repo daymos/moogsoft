@@ -1,5 +1,6 @@
  /*eslint-disable*/
 import * as _ from 'ramda';
+import * as rH from './renderHelpers.js';
 
 export const compose = (...args) => value => args.reverse().reduce((acc, fn) => fn(acc), value);
 
@@ -9,20 +10,7 @@ export const stringify = data => JSON.stringify(data);
 // parse :: String -> Object
 export const parse = data => ((typeof data === 'string') ? JSON.parse(data) : data);
 
-// updateView :: Object -> String DomElement
-export const renderInvite = invite => (
-  `<li class='${(invite.isUpdate) ? 'update' : 'old'}'>
-  <div class='sender_id'>${invite.sender_id} via <span class='vector'>${invite.vector}<span></div>
-  <div class='invite'>${invite.invite}</div>
-  <div class='time'>sent at ${new Date(invite.invite_time)}</div>
-  <div class='status'>status ${invite.status}</div>
-  </li>`
-);
 
-// encapsulateLiInsideUl :: String DomEl -> String DomEl
-export const renderHistory = history => (
-  `<ul id='history'>${history.join('')}</ul>`
-);
 // genUlComponent :: fn -> Functor -> Functor Object
 export const genArrayOfLiComponents = fn => data => data.map(fn);
 
@@ -48,5 +36,4 @@ export const mergeRepeatedObjects = sorted => (
   )
   , [])
 );
-
-
+ 

@@ -1,11 +1,11 @@
 .container {
   margin: 0 auto;
   width: 600px;
-  color: #e6e1dc;
+  color: #E6E1DC;
 }
 
 .old {
-  background-color: #a5c261;
+  background-color: #e6e1dc;
 }
 
 .update {
@@ -25,7 +25,7 @@ li {
 }
 
 body {
-  background-color: #2b2b2b;
+  background-color: #e6e1dc;
 }
 
 .sender_id {
@@ -60,4 +60,14 @@ h2 {
   text-align: center;
 }
 
+.link a {
+  color:black;
+  text-decoration: none; /* no underline */
+  font-weight: bold;
+}
 
+.details {
+  font-size: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

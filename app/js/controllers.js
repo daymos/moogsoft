@@ -5,12 +5,13 @@ import _ from 'ramda'
 import * as db from './db';
 import * as H from './helpers';
 import { updateDom, clearAll } from './updateViewHelpers.js';
+import * as rH from './renderHelpers.js';
 
 // list :: Object -> undefined
 export const list = current => H.compose(
   updateDom,
-  H.renderHistory,
-  H.genArrayOfLiComponents(H.renderInvite),
+  rH.renderHistory,
+  H.genArrayOfLiComponents(rH.renderInvite),
   H.parse,
 )(current);
 
