@@ -4,4 +4,5 @@ export default {
   orange: '#CC7833',
   white: '#E6E1DC',
   green: '#A5C261',
+  red: '218 73 57',
 };

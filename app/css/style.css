@@ -1,12 +1,11 @@
 .container {
   margin: 0 auto;
-  width: 300px;
+  width: 600px;
   color: #e6e1dc;
 }
 
 .old {
   background-color: #a5c261;
-
 }
 
 .update {
@@ -31,5 +30,34 @@ body {
 
 .sender_id {
   font-weight: bold; 
-  font-size: 10px;
+  font-size: 15px;
 }
+.status{
+  font-weight: bold; 
+  font-size: 15px;
+  color:red;
+  border-radius: 10px;
+  border: 2px solid #e6e1dc;
+  text-align: center;
+
+}
+
+.invite {
+  margin: 0 auto;
+  padding: 5px;
+  font-size: 15px;
+
+  border-radius: 10px;
+  border: 2px solid #E6E1DC;
+}
+
+.time {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+h2 {
+  text-align: center;
+}
+
+

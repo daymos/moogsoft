@@ -55,15 +55,15 @@
 	
 	__webpack_require__(2);
 	
-	var _controllers = __webpack_require__(5);
+	var _controllers = __webpack_require__(6);
 	
 	var ctrls = _interopRequireWildcard(_controllers);
 	
-	var _updateViewHelpers = __webpack_require__(15);
+	var _updateViewHelpers = __webpack_require__(16);
 	
 	var dom = _interopRequireWildcard(_updateViewHelpers);
 	
-	var _db = __webpack_require__(12);
+	var _db = __webpack_require__(13);
 	
 	var db = _interopRequireWildcard(_db);
 	
@@ -85,7 +85,7 @@
 	var content = __webpack_require__(3);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(4)(content, {});
+	var update = __webpack_require__(5)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -105,18 +105,73 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(18)();
+	exports = module.exports = __webpack_require__(4)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 300px;\n  color: #e6e1dc;\n}\n\n.old {\n  background-color: #a5c261;\n\n}\n\n.update {\n  background-color:#cc7833;\n}\n\nul {\n  list-style: none;\n}\n\nli {\n  padding: 20px;\n  margin: 5px auto;\n  border-radius: 10px;\n  border: 2px solid #6691AF;\n  color: black;\n}\n\nbody {\n  background-color: #2b2b2b;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 10px;\n}\n", ""]);
+	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 600px;\n  color: #e6e1dc;\n}\n\n.old {\n  background-color: #a5c261;\n}\n\n.update {\n  background-color:#cc7833;\n}\n\nul {\n  list-style: none;\n}\n\nli {\n  padding: 20px;\n  margin: 5px auto;\n  border-radius: 10px;\n  border: 2px solid #6691AF;\n  color: black;\n}\n\nbody {\n  background-color: #2b2b2b;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n}\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  color:red;\n  border-radius: 10px;\n  border: 2px solid #e6e1dc;\n  text-align: center;\n\n}\n\n.invite {\n  margin: 0 auto;\n  padding: 5px;\n  font-size: 15px;\n\n  border-radius: 10px;\n  border: 2px solid #E6E1DC;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 12px;\n}\n\nh2 {\n  text-align: center;\n}\n\n\n", ""]);
 	
 	// exports
 
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function () {
+		var list = [];
+	
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for (var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if (item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+	
+		// import a list of modules into the list
+		list.i = function (modules, mediaQuery) {
+			if (typeof modules === "string") modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for (var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if (typeof id === "number") alreadyImportedModules[id] = true;
+			}
+			for (i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if (mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if (mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -368,7 +423,7 @@
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -378,23 +433,23 @@
 	});
 	exports.fetchUpdate = exports.run = exports.mergeData = exports.list = undefined;
 	
-	var _data = __webpack_require__(6);
+	var _data = __webpack_require__(7);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
-	var _ramda = __webpack_require__(11);
+	var _ramda = __webpack_require__(12);
 	
 	var _ramda2 = _interopRequireDefault(_ramda);
 	
-	var _db = __webpack_require__(12);
+	var _db = __webpack_require__(13);
 	
 	var db = _interopRequireWildcard(_db);
 	
-	var _helpers = __webpack_require__(14);
+	var _helpers = __webpack_require__(15);
 	
 	var H = _interopRequireWildcard(_helpers);
 	
-	var _updateViewHelpers = __webpack_require__(15);
+	var _updateViewHelpers = __webpack_require__(16);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -423,15 +478,15 @@
 	};
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(7);
+	module.exports = __webpack_require__(8);
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, process) {'use strict';
@@ -790,10 +845,10 @@
 	    });
 	  }, cleanup);
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8).setImmediate, __webpack_require__(10)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9).setImmediate, __webpack_require__(11)))
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -846,12 +901,12 @@
 	};
 	
 	// setimmediate attaches itself to the global object
-	__webpack_require__(9);
+	__webpack_require__(10);
 	exports.setImmediate = setImmediate;
 	exports.clearImmediate = clearImmediate;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {"use strict";
@@ -1038,10 +1093,10 @@
 	    attachTo.setImmediate = setImmediate;
 	    attachTo.clearImmediate = clearImmediate;
 	})(typeof self === "undefined" ? typeof global === "undefined" ? undefined : global : self);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(10)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(11)))
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1227,7 +1282,7 @@
 	};
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -10018,7 +10073,7 @@
 	}).call(undefined);
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10028,11 +10083,11 @@
 	});
 	exports.getData = undefined;
 	
-	var _data = __webpack_require__(6);
+	var _data = __webpack_require__(7);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
-	var _data3 = __webpack_require__(13);
+	var _data3 = __webpack_require__(14);
 	
 	var data = _interopRequireWildcard(_data3);
 	
@@ -10055,7 +10110,7 @@
 	}(data);
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10230,7 +10285,7 @@
 	}]);
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10243,7 +10298,7 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /*eslint-disable*/
 	
 	
-	var _ramda = __webpack_require__(11);
+	var _ramda = __webpack_require__(12);
 	
 	var _ = _interopRequireWildcard(_ramda);
 	
@@ -10273,7 +10328,7 @@
 	
 	// updateView :: Object -> String DomElement
 	var renderInvite = exports.renderInvite = function renderInvite(invite) {
-	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'sender_id\'>' + invite.sender_id + ' via <span class=\'vector\'>' + invite.vector + '<span></div>\n  <div class=\'invite\'>' + invite.invite + '</div>\n  <div class=\'vector\'>' + invite.vector + '</div>\n  <div class=\'time\'>sent at ' + new Date(invite.invite_time) + '</div>\n  <div class=\'status\'>status ' + invite.status + '</div>\n  </li>';
+	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'sender_id\'>' + invite.sender_id + ' via <span class=\'vector\'>' + invite.vector + '<span></div>\n  <div class=\'invite\'>' + invite.invite + '</div>\n  <div class=\'time\'>sent at ' + new Date(invite.invite_time) + '</div>\n  <div class=\'status\'>status ' + invite.status + '</div>\n  </li>';
 	};
 	
 	// encapsulateLiInsideUl :: String DomEl -> String DomEl
@@ -10318,7 +10373,7 @@
 	};
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10328,7 +10383,7 @@
 	});
 	exports.updateDom = exports.clearAll = undefined;
 	
-	var _jquery = __webpack_require__(16);
+	var _jquery = __webpack_require__(17);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -10344,7 +10399,7 @@
 	};
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -20141,10 +20196,10 @@
 	
 		return jQuery;
 	});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)(module)))
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20158,61 +20213,6 @@
 			module.webpackPolyfill = 1;
 		}
 		return module;
-	};
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function () {
-		var list = [];
-	
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for (var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if (item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-	
-		// import a list of modules into the list
-		list.i = function (modules, mediaQuery) {
-			if (typeof modules === "string") modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for (var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if (typeof id === "number") alreadyImportedModules[id] = true;
-			}
-			for (i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if (mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if (mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
 	};
 
 /***/ }

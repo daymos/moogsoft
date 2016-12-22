@@ -14,7 +14,6 @@ export const renderInvite = invite => (
   `<li class='${(invite.isUpdate) ? 'update' : 'old'}'>
   <div class='sender_id'>${invite.sender_id} via <span class='vector'>${invite.vector}<span></div>
   <div class='invite'>${invite.invite}</div>
-  <div class='vector'>${invite.vector}</div>
   <div class='time'>sent at ${new Date(invite.invite_time)}</div>
   <div class='status'>status ${invite.status}</div>
   </li>`
