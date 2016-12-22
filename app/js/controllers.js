@@ -14,24 +14,13 @@ export const list = current => H.compose(
   H.parse,
 )(current);
 
-
-export const mergeRepeatedObjects =  (sorted) => (
-  sorted.reduce((acc, el, i, sorted) => {
-    return ((i < sorted.length-1 && el.invite_id === sorted[i+1].invite_id && !el.isUpdate ) ? acc.concat([_.merge(el, sorted[i+1])]) : 
-        (i< sorted.length-1 && el.invite_id === sorted[i+1].invite_id && el.isUpdate) ? acc.concat([_.merge(sorted[i+1], el)]) :
-        (el.invite_id === sorted[i-1].invite_id ) ? acc : acc.concat([el]))
-  }, [])
-)
-
 export const mergeData = _.curry((history, update) => (
-  // in here prep data and then call list
   H.compose( 
     H.mergeRepeatedObjects,
     H.sortByInviteId,
     H.concat(JSON.parse(history)),
     H.markUpdates)(JSON.parse(update))
 ))
-
 
 export const run = () => {
   db.getData('history')

@@ -1,6 +1,5 @@
 import $ from 'jquery';
 
-
 export const clearAll = target => $(target).empty();
 
 export const updateDom = el => {

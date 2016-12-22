@@ -1,4 +1,5 @@
  /*eslint-disable*/
+import '../css/style.css';
 
 import * as ctrls from './controllers';
 import * as dom from './updateViewHelpers';

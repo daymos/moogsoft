@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 //  This simulate an asyn connection to db.
 
 import Task from 'data.task'

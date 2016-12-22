@@ -25,6 +25,9 @@ module.exports = {
         test: /\.html$/,
         loader: 'html-loader',
       },
+      { test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
     ],
   },
   plugins: [
@@ -39,4 +42,7 @@ module.exports = {
     colors: true,
   },
   devtool: 'source-map',
+  resolve: {
+      extensions: ['', '.js', '.css']
+  }
 };
