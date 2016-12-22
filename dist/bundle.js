@@ -59,7 +59,7 @@
 	
 	var ctrls = _interopRequireWildcard(_controllers);
 	
-	var _updateViewHelpers = __webpack_require__(17);
+	var _updateViewHelpers = __webpack_require__(18);
 	
 	var dom = _interopRequireWildcard(_updateViewHelpers);
 	
@@ -110,7 +110,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 600px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n.update {\n  background-color:#cc7833;\n}\n\nul {\n  list-style: none;\n}\n\nli {\n  padding: 20px;\n  margin: 5px auto;\n  border-radius: 10px;\n  border: 2px solid #6691AF;\n  color: black;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n}\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  color:red;\n  border-radius: 10px;\n  border: 2px solid #e6e1dc;\n  text-align: center;\n\n}\n\n.invite {\n  margin: 0 auto;\n  padding: 5px;\n  font-size: 15px;\n\n  border-radius: 10px;\n  border: 2px solid #E6E1DC;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 12px;\n}\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n", ""]);
+	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 600px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n.update {\n  background-color:#cc7833;\n}\n\nul {\n  list-style: none;\n}\n\nli {\n  text-align:center;\n  padding: 20px;\n  margin: 10px auto;\n  color: black;\n  box-shadow: 2px 2px 2px 1px #888888;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n}\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  text-align: center;\n\n}\n\n.invite {\n  margin: 0 auto;\n  padding: 5px;\n  font-size: 15px;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 12px;\n}\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n", ""]);
 	
 	// exports
 
@@ -449,9 +449,9 @@
 	
 	var H = _interopRequireWildcard(_helpers);
 	
-	var _updateViewHelpers = __webpack_require__(17);
+	var _updateViewHelpers = __webpack_require__(18);
 	
-	var _renderHelpers = __webpack_require__(20);
+	var _renderHelpers = __webpack_require__(16);
 	
 	var rH = _interopRequireWildcard(_renderHelpers);
 	
@@ -10308,7 +10308,7 @@
 	
 	var _ = _interopRequireWildcard(_ramda);
 	
-	var _renderHelpers = __webpack_require__(20);
+	var _renderHelpers = __webpack_require__(16);
 	
 	var rH = _interopRequireWildcard(_renderHelpers);
 	
@@ -10375,6 +10375,40 @@
 
 /***/ },
 /* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.renderHistory = exports.renderInvite = exports.renderInviteText = exports.formatDate = undefined;
+	
+	var _dateFormat = __webpack_require__(17);
+	
+	var _dateFormat2 = _interopRequireDefault(_dateFormat);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var formatDate = exports.formatDate = function formatDate(date) {
+	  return (0, _dateFormat2.default)(date, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
+	};
+	
+	var renderInviteText = exports.renderInviteText = function renderInviteText(str) {
+	  return '<div>\n  <div class = \'details\'> ' + str.match(/\[(.*?)]/)[1] + '</div> \n    <hr>\n    <div class = \'reference\'>' + str.split('[')[0] + '</div> \n    <div class = \'link\'> Click<a href=\'http://www.moogsoft.com\'> here </a> to open the situation room</div> \n      </div>';
+	};
+	
+	var renderInvite = exports.renderInvite = function renderInvite(invite) {
+	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'invite\'>' + renderInviteText(invite.invite) + '</div>\n  <div class=\'sender_id\'>' + invite.sender_id + ' via <span class=\'vector\'>' + invite.vector + '</span>\n  <span class=\'time\'>at ' + formatDate(invite.invite_time) + '</span>\n  </div>\n  <div class=\'status\'>status ' + invite.status + '</div>\n  </li>';
+	};
+	
+	// encapsulateLiInsideUl :: String DomEl -> String DomEl
+	var renderHistory = exports.renderHistory = function renderHistory(history) {
+	  return '<ul id=\'history\'>' + history.join('') + '</ul>';
+	};
+
+/***/ },
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -10600,7 +10634,7 @@
 	})(undefined);
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10610,7 +10644,7 @@
 	});
 	exports.updateDom = exports.clearAll = undefined;
 	
-	var _jquery = __webpack_require__(18);
+	var _jquery = __webpack_require__(19);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
@@ -10626,7 +10660,7 @@
 	};
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -20423,10 +20457,10 @@
 	
 		return jQuery;
 	});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)(module)))
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20440,40 +20474,6 @@
 			module.webpackPolyfill = 1;
 		}
 		return module;
-	};
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.renderHistory = exports.renderInvite = exports.renderInviteText = exports.formatDate = undefined;
-	
-	var _dateFormat = __webpack_require__(16);
-	
-	var _dateFormat2 = _interopRequireDefault(_dateFormat);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var formatDate = exports.formatDate = function formatDate(date) {
-	  return (0, _dateFormat2.default)(date, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
-	};
-	
-	var renderInviteText = exports.renderInviteText = function renderInviteText(str) {
-	  return '<div>\n  <div class = \'reference\'>' + str.split('[')[0] + '</div> \n  <div class = \'details\'> ' + str.match(/\[(.*?)]/)[1] + '</div> \n    <div class = \'link\'> Click<a href=\'http://www.moogsoft.com\'> here </a> to open the situation room</div> \n      </div>';
-	};
-	
-	var renderInvite = exports.renderInvite = function renderInvite(invite) {
-	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'sender_id\'>' + invite.sender_id + ' via <span class=\'vector\'>' + invite.vector + '<span></div>\n  <div class=\'invite\'>' + renderInviteText(invite.invite) + '</div>\n  <div class=\'time\'>sent ' + formatDate(invite.invite_time) + '</div>\n  <div class=\'status\'>status ' + invite.status + '</div>\n  </li>';
-	};
-	
-	// encapsulateLiInsideUl :: String DomEl -> String DomEl
-	var renderHistory = exports.renderHistory = function renderHistory(history) {
-	  return '<ul id=\'history\'>' + history.join('') + '</ul>';
 	};
 
 /***/ }
