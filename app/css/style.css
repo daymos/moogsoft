@@ -21,22 +21,18 @@ li {
   padding: 20px;
   margin: 10px auto;
   color: black;
-  box-shadow: 2px 2px 2px 1px #888888;
+  box-shadow: 2px 2px 2px 2px #888888;
 }
 
 body {
   background-color: #e6e1dc;
 }
 
-.sender_id {
-  font-weight: bold; 
-  font-size: 15px;
-}
+
 .status{
   font-weight: bold; 
   font-size: 15px;
-  text-align: center;
-
+  float: left;
 }
 
 .invite {
@@ -45,10 +41,7 @@ body {
   font-size: 15px;
 }
 
-.time {
-  font-weight: bold;
-  font-size: 12px;
-}
+
 
 h2 {
   text-align: center;
@@ -64,4 +57,27 @@ h2 {
   font-size: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.vector {
+  float: left;
+  font-size: 15px;
+}
+
+.sender_id {
+  font-weight: bold; 
+  font-size: 15px;
+  float:left;
+  margin-right: 5px;
+}
+
+.time {
+  font-weight: bold;
+  font-size: 15px;
+  float: right;
+}
+
+.lifooter {
+  padding: 2px;
+
 }

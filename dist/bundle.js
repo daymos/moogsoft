@@ -110,7 +110,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 600px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n.update {\n  background-color:#cc7833;\n}\n\nul {\n  list-style: none;\n}\n\nli {\n  text-align:center;\n  padding: 20px;\n  margin: 10px auto;\n  color: black;\n  box-shadow: 2px 2px 2px 1px #888888;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n}\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  text-align: center;\n\n}\n\n.invite {\n  margin: 0 auto;\n  padding: 5px;\n  font-size: 15px;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 12px;\n}\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n", ""]);
+	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 600px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n.update {\n  background-color:#cc7833;\n}\n\nul {\n  list-style: none;\n}\n\nli {\n  text-align:center;\n  padding: 20px;\n  margin: 10px auto;\n  color: black;\n  box-shadow: 2px 2px 2px 2px #888888;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  float: left;\n}\n\n.invite {\n  margin: 0 auto;\n  padding: 5px;\n  font-size: 15px;\n}\n\n\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n\n.vector {\n  float: left;\n  font-size: 15px;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n  float:left;\n  margin-right: 5px;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 15px;\n  float: right;\n}\n\n.lifooter {\n  padding: 2px;\n\n}\n", ""]);
 	
 	// exports
 
@@ -462,11 +462,15 @@
 	// list :: Object -> undefined
 	/* eslint-disable */
 	var list = exports.list = function list(current) {
-	  return H.compose(_updateViewHelpers.updateDom, rH.renderHistory, H.genArrayOfLiComponents(rH.renderInvite), H.parse)(current);
+	  return H.compose(_updateViewHelpers.updateDom, rH.renderHistory, H.genArrayOfLiComponents(rH.renderInvite),
+	  //H.sortByDescendingTime,
+	  H.parse)(current);
 	};
 	
 	var mergeData = exports.mergeData = _ramda2.default.curry(function (history, update) {
-	  return H.compose(H.mergeRepeatedObjects, H.sortByInviteId, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update));
+	  return H.compose(
+	  //   H.sortByDescendingTime,
+	  H.trace('tracing merge  result: '), H.mergeRepeatedObjects, H.sortByInviteId, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update));
 	});
 	
 	var run = exports.run = function run() {
@@ -479,7 +483,7 @@
 	  _data2.default.of(mergeData).ap(db.getData('history')).ap(db.getData('update')).fork(function (err) {
 	    return console.log(err);
 	  }, function (res) {
-	    console.log(res);list(res);
+	    list(res);
 	  });
 	};
 
@@ -10299,7 +10303,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.mergeRepeatedObjects = exports.sortByInviteId = exports.concat = exports.markUpdates = exports.trace = exports.genArrayOfLiComponents = exports.parse = exports.stringify = exports.compose = undefined;
+	exports.mergeRepeatedObjects = exports.sortByDescendingTime = exports.sortByInviteId = exports.concat = exports.markUpdates = exports.trace = exports.genArrayOfLiComponents = exports.parse = exports.stringify = exports.compose = undefined;
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /*eslint-disable*/
 	
@@ -10367,6 +10371,10 @@
 	  return _.sortBy(_.prop('invite_id'))(concatenated);
 	};
 	
+	var sortByDescendingTime = exports.sortByDescendingTime = function sortByDescendingTime(arr) {
+	  return _.sortBy(_.prop('invite_time'))(arr).reverse();
+	};
+	
 	var mergeRepeatedObjects = exports.mergeRepeatedObjects = function mergeRepeatedObjects(sorted) {
 	  return sorted.reduce(function (acc, el, i, arr) {
 	    return i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && !el.isUpdate ? acc.concat([_.merge(el, arr[i + 1])]) : i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && el.isUpdate ? acc.concat([_.merge(arr[i + 1], el)]) : el.invite_id === arr[i - 1].invite_id ? acc : acc.concat([el]);
@@ -10391,7 +10399,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var formatDate = exports.formatDate = function formatDate(date) {
-	  return (0, _dateFormat2.default)(date, 'dddd, mmmm dS, yyyy, h:MM:ss TT');
+	  return (0, _dateFormat2.default)(date, 'dddd, h:MM:ss TT');
 	};
 	
 	var renderInviteText = exports.renderInviteText = function renderInviteText(str) {
@@ -10399,7 +10407,7 @@
 	};
 	
 	var renderInvite = exports.renderInvite = function renderInvite(invite) {
-	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'invite\'>' + renderInviteText(invite.invite) + '</div>\n  <div class=\'sender_id\'>' + invite.sender_id + ' via <span class=\'vector\'>' + invite.vector + '</span>\n  <span class=\'time\'>at ' + formatDate(invite.invite_time) + '</span>\n  </div>\n  <div class=\'status\'>status ' + invite.status + '</div>\n  </li>';
+	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'overlay\'>\n  <div class=\'invite\'>' + renderInviteText(invite.invite) + '</div>\n  <div class=\'lifooter\'>\n  <span class=\'sender_id\'>' + invite.sender_id + '</span>\n  <span class=\'vector\'>  via ' + invite.vector + '</span>\n  <span class=\'time\'> ' + formatDate(invite.invite_time) + '</span>\n  </div>\n  </div>\n  </li>';
 	};
 	
 	// encapsulateLiInsideUl :: String DomEl -> String DomEl

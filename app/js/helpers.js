@@ -28,6 +28,8 @@ export const concat = first => second => first.concat(second);
 
 export const sortByInviteId = concatenated => _.sortBy(_.prop('invite_id'))(concatenated);
 
+export const sortByDescendingTime = arr  => _.sortBy(_.prop('invite_time'))(arr).reverse();
+
 export const mergeRepeatedObjects = sorted => (
   sorted.reduce((acc, el, i, arr) => (
     (i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && !el.isUpdate) ? acc.concat([_.merge(el, arr[i + 1])]) :

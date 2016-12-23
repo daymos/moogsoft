@@ -12,11 +12,14 @@ export const list = current => H.compose(
   updateDom,
   rH.renderHistory,
   H.genArrayOfLiComponents(rH.renderInvite),
+  //H.sortByDescendingTime,
   H.parse,
 )(current);
 
 export const mergeData = _.curry((history, update) => (
   H.compose( 
+    //   H.sortByDescendingTime,
+    H.trace('tracing merge  result: '),
     H.mergeRepeatedObjects,
     H.sortByInviteId,
     H.concat(JSON.parse(history)),
@@ -32,6 +35,6 @@ export const fetchUpdate = () => {
   Task.of(mergeData)
     .ap(db.getData('history'))
     .ap(db.getData('update'))
-    .fork(err => console.log(err),res =>{ console.log(res); list(res)} )
+    .fork(err => console.log(err),res =>{ list(res)} )
 }
 
