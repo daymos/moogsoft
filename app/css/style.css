@@ -109,7 +109,7 @@ hr.update{
   height: 1px;
   border: 0;
   border-top: 1px solid #CC7833;
-  margin: 1em 0;
+  margin: 5px;
   padding: 0; 
 }
 
@@ -118,7 +118,7 @@ hr.old{
   height: 1px;
   border: 0;
   border-top: 1px solid #6691AF;
-  margin: 1em 0;
+  margin: 5px;
   padding: 0; 
 }
 
