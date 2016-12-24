@@ -13,12 +13,14 @@ export const list = current => H.compose(
   rH.renderHistory,
   H.genArrayOfLiComponents(rH.renderInvite),
   //H.sortByDescendingTime,
+  H.sortByReverseInviteId, 
   H.parse,
 )(current);
 
 export const mergeData = _.curry((history, update) => (
   H.compose( 
     //   H.sortByDescendingTime,
+    H.sortByReverseInviteId,
     H.trace('tracing merge  result: '),
     H.mergeRepeatedObjects,
     H.sortByInviteId,

@@ -110,7 +110,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 600px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n.update {\n  background-color:#cc7833;\n}\n\nul {\n  list-style: none;\n}\n\nli {\n  text-align:center;\n  padding: 20px;\n  margin: 10px auto;\n  color: black;\n  box-shadow: 2px 2px 2px 2px #888888;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  float: left;\n}\n\n.invite {\n  margin: 0 auto;\n  padding: 5px;\n  font-size: 15px;\n}\n\n\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n\n.vector {\n  float: left;\n  font-size: 15px;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n  float:left;\n  margin-right: 5px;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 15px;\n  float: right;\n}\n\n.lifooter {\n  padding: 2px;\n\n}\n", ""]);
+	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 400px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n@keyframes update {\n    0% {background-color: #CC7833; }\n    100% {background-color: #E6E1DC;}\n}\n\n.update {\n  background-color:#E6E1DC;\n  animation-name: update;\n  animation-duration: 3s;\n}\n\nul {\n  list-style: none;\n  list-style-type: none;\n  padding: 0;\n}\n\nli {\n  text-align:center;\n  margin: 10px auto;\n  color: black;\n  box-shadow: 2px 2px 2px 2px #888888;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  float: left;\n}\n\n.invite {\n  margin: 20px auto;\n  font-size: 15px;\n}\n.content-container {\n  padding: 5px;\n}\n\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n\n.vector {\n  float: left;\n  font-size: 15px;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n  float:left;\n  margin-right: 5px;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 15px;\n  float: right;\n}\n\n.lifooter {\n  padding: 2px;\n}\n\n.overlay-hidden {\n  background-color: gray;\n  display:none;\n}\n\n.overlay-show {\n  background-color: gray;\n  opacity:.1;\n  display:visible;\n}\n\nhr.update{\n  display: block;\n  height: 1px;\n  border: 0;\n  border-top: 1px solid #CC7833;\n  margin: 1em 0;\n  padding: 0; \n}\n\nhr.old{\n  display: block;\n  height: 1px;\n  border: 0;\n  border-top: 1px solid #6691AF;\n  margin: 1em 0;\n  padding: 0; \n}\n\n\n\n\n", ""]);
 	
 	// exports
 
@@ -464,13 +464,13 @@
 	var list = exports.list = function list(current) {
 	  return H.compose(_updateViewHelpers.updateDom, rH.renderHistory, H.genArrayOfLiComponents(rH.renderInvite),
 	  //H.sortByDescendingTime,
-	  H.parse)(current);
+	  H.sortByReverseInviteId, H.parse)(current);
 	};
 	
 	var mergeData = exports.mergeData = _ramda2.default.curry(function (history, update) {
 	  return H.compose(
 	  //   H.sortByDescendingTime,
-	  H.trace('tracing merge  result: '), H.mergeRepeatedObjects, H.sortByInviteId, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update));
+	  H.sortByReverseInviteId, H.trace('tracing merge  result: '), H.mergeRepeatedObjects, H.sortByInviteId, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update));
 	});
 	
 	var run = exports.run = function run() {
@@ -10303,7 +10303,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.mergeRepeatedObjects = exports.sortByDescendingTime = exports.sortByInviteId = exports.concat = exports.markUpdates = exports.trace = exports.genArrayOfLiComponents = exports.parse = exports.stringify = exports.compose = undefined;
+	exports.mergeRepeatedObjects = exports.sortByDescendingTime = exports.sortByReverseInviteId = exports.sortByInviteId = exports.concat = exports.markUpdates = exports.trace = exports.genArrayOfLiComponents = exports.parse = exports.stringify = exports.compose = undefined;
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /*eslint-disable*/
 	
@@ -10371,6 +10371,10 @@
 	  return _.sortBy(_.prop('invite_id'))(concatenated);
 	};
 	
+	var sortByReverseInviteId = exports.sortByReverseInviteId = function sortByReverseInviteId(concatenated) {
+	  return _.sortBy(_.prop('invite_id'))(concatenated).reverse();
+	};
+	
 	var sortByDescendingTime = exports.sortByDescendingTime = function sortByDescendingTime(arr) {
 	  return _.sortBy(_.prop('invite_time'))(arr).reverse();
 	};
@@ -10402,12 +10406,12 @@
 	  return (0, _dateFormat2.default)(date, 'dddd, h:MM:ss TT');
 	};
 	
-	var renderInviteText = exports.renderInviteText = function renderInviteText(str) {
-	  return '<div>\n  <div class = \'details\'> ' + str.match(/\[(.*?)]/)[1] + '</div> \n    <hr>\n    <div class = \'reference\'>' + str.split('[')[0] + '</div> \n    <div class = \'link\'> Click<a href=\'http://www.moogsoft.com\'> here </a> to open the situation room</div> \n      </div>';
+	var renderInviteText = exports.renderInviteText = function renderInviteText(invite) {
+	  return '<div>\n     <div class = \'details\'> ' + invite.invite.match(/\[(.*?)]/)[1] + '</div> \n     <hr class = \'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n     <div class = \'reference\'>' + invite.invite.split('[')[0] + '</div> \n      <div class = \'link\'> Click<a href=\'http://www.moogsoft.com\'> here </a> to open the situation room</div> \n  </div> ';
 	};
 	
 	var renderInvite = exports.renderInvite = function renderInvite(invite) {
-	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'overlay\'>\n  <div class=\'invite\'>' + renderInviteText(invite.invite) + '</div>\n  <div class=\'lifooter\'>\n  <span class=\'sender_id\'>' + invite.sender_id + '</span>\n  <span class=\'vector\'>  via ' + invite.vector + '</span>\n  <span class=\'time\'> ' + formatDate(invite.invite_time) + '</span>\n  </div>\n  </div>\n  </li>';
+	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\'>\n  <div class=\'content-container\'>\n  <div class=\'invite\'>' + renderInviteText(invite) + '</div>\n  <div class=\'lifooter\'>\n  <span class=\'sender_id\'>' + invite.sender_id + '</span>\n  <span class=\'vector\'>  via ' + invite.vector + '</span>\n  <span class=\'time\'> ' + formatDate(invite.invite_time) + '</span>\n  <span > ' + invite.status + '</span>\n  </div>\n  </div>\n  </li>';
 	};
 	
 	// encapsulateLiInsideUl :: String DomEl -> String DomEl

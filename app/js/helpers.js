@@ -28,6 +28,8 @@ export const concat = first => second => first.concat(second);
 
 export const sortByInviteId = concatenated => _.sortBy(_.prop('invite_id'))(concatenated);
 
+export const sortByReverseInviteId = concatenated => _.sortBy(_.prop('invite_id'))(concatenated).reverse();
+
 export const sortByDescendingTime = arr  => _.sortBy(_.prop('invite_time'))(arr).reverse();
 
 export const mergeRepeatedObjects = sorted => (

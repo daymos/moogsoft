@@ -1,6 +1,6 @@
 .container {
   margin: 0 auto;
-  width: 600px;
+  width: 400px;
   color: #E6E1DC;
 }
 
@@ -8,17 +8,25 @@
   background-color: #e6e1dc;
 }
 
+@keyframes update {
+    0% {background-color: #CC7833; }
+    100% {background-color: #E6E1DC;}
+}
+
 .update {
-  background-color:#cc7833;
+  background-color:#E6E1DC;
+  animation-name: update;
+  animation-duration: 3s;
 }
 
 ul {
   list-style: none;
+  list-style-type: none;
+  padding: 0;
 }
 
 li {
   text-align:center;
-  padding: 20px;
   margin: 10px auto;
   color: black;
   box-shadow: 2px 2px 2px 2px #888888;
@@ -36,11 +44,12 @@ body {
 }
 
 .invite {
-  margin: 0 auto;
-  padding: 5px;
+  margin: 20px auto;
   font-size: 15px;
 }
-
+.content-container {
+  padding: 5px;
+}
 
 
 h2 {
@@ -79,5 +88,37 @@ h2 {
 
 .lifooter {
   padding: 2px;
-
 }
+
+.overlay-hidden {
+  background-color: gray;
+  display:none;
+}
+
+.overlay-show {
+  background-color: gray;
+  opacity:.1;
+  display:visible;
+}
+
+hr.update{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #CC7833;
+  margin: 1em 0;
+  padding: 0; 
+}
+
+hr.old{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #6691AF;
+  margin: 1em 0;
+  padding: 0; 
+}
+
+
+
+
