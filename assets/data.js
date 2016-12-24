@@ -80,7 +80,7 @@ export const history = JSON.stringify(
         "invite": "The Owner has invited you to join Situation 10293 [Mail intermittendly available]\\nPlease follow this link to open Situation Room: http://www.moogsoft.com",
         "vector": "Email",
         "invite_time": 1399292261,
-        "status": "read"
+        "status": "unread"
     },{
         "invite_id": 11,
         "sender_id": "jeff",
@@ -166,5 +166,14 @@ export const update = JSON.stringify(
         "vector": "Email",
         "invite_time": 1399292261,
         "status": "read"
-    }]
+    },{
+        "invite_id": 10,
+        "sender_id": "mike",
+        "sig_id": 10293,
+        "invite": "The Owner has invited you to join Situation 10293 [Mail intermittendly available]\\nPlease follow this link to open Situation Room: http://www.moogsoft.com",
+        "vector": "Email",
+        "invite_time": 1399292261,
+        "status": "read"
+    }
+    ]
 );
