@@ -104,7 +104,7 @@ h2 {
   display:visible;
 }
 
-hr.update{
+.updatehr{
   display: block;
   height: 1px;
   border: 0;
@@ -113,7 +113,7 @@ hr.update{
   padding: 0; 
 }
 
-hr.old{
+.seen {
   display: block;
   height: 1px;
   border: 0;

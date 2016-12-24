@@ -5,7 +5,7 @@ export const formatDate = date => dateFormat(date, 'dddd, h:MM:ss TT');
 export const renderInviteText = invite => (
   `<div>
      <div class = 'details'> ${invite.invite.match(/\[(.*?)]/)[1]}</div> 
-     <hr class = '${(invite.isUpdate) ? 'update' : 'old'}'>
+     <hr class = '${(invite.isUpdate) ? 'updatehr' : 'seen'}'>
      <div class = 'reference'>${invite.invite.split('[')[0]}</div> 
       <div class = 'link'> Click<a href='http://www.moogsoft.com'> here </a> to open the situation room</div> 
   </div> `
