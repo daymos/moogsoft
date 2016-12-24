@@ -57,15 +57,15 @@
 	
 	__webpack_require__(6);
 	
-	var _controllers = __webpack_require__(10);
+	var _controllers = __webpack_require__(9);
 	
 	var ctrls = _interopRequireWildcard(_controllers);
 	
-	var _updateViewHelpers = __webpack_require__(22);
+	var _updateViewHelpers = __webpack_require__(21);
 	
 	var dom = _interopRequireWildcard(_updateViewHelpers);
 	
-	var _db = __webpack_require__(17);
+	var _db = __webpack_require__(16);
 	
 	var db = _interopRequireWildcard(_db);
 	
@@ -10284,69 +10284,31 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _jquery = __webpack_require__(7);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  var ids = [];
-	  (0, _jquery2.default)('.update').each(function (i, el) {
-	    return ids.push(el.id);
-	  });
-	  ids.filter(function (el) {
-	    return el !== '';
-	  }).forEach(function (el) {
-	    (0, _jquery2.default)('#' + el).click(function () {
-	      (0, _jquery2.default)('#' + el).find('hr').removeClass('update').addClass('seen');
-	      console.log('clicked');
-	    });
-	    (0, _jquery2.default)('#' + el).inViewport(function (xs) {
-	      if (xs) {
-	        console.log(xs);
-	        console.log('el', el);
-	        (0, _jquery2.default)('#' + el).addClass('animate');
-	      }
-	    });
-	  });
-	};
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.fetchUpdate = exports.run = exports.mergeData = exports.list = undefined;
 	
-	var _data = __webpack_require__(11);
+	var _data = __webpack_require__(10);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
-	var _ramda = __webpack_require__(16);
+	var _ramda = __webpack_require__(15);
 	
 	var _ramda2 = _interopRequireDefault(_ramda);
 	
-	var _db = __webpack_require__(17);
+	var _db = __webpack_require__(16);
 	
 	var db = _interopRequireWildcard(_db);
 	
-	var _helpers = __webpack_require__(19);
+	var _helpers = __webpack_require__(18);
 	
 	var H = _interopRequireWildcard(_helpers);
 	
-	var _updateViewHelpers = __webpack_require__(22);
+	var _updateViewHelpers = __webpack_require__(21);
 	
-	var _renderHelpers = __webpack_require__(20);
+	var _renderHelpers = __webpack_require__(19);
 	
 	var rH = _interopRequireWildcard(_renderHelpers);
 	
-	var _animation = __webpack_require__(9);
+	var _animation = __webpack_require__(22);
 	
 	var _animation2 = _interopRequireDefault(_animation);
 	
@@ -10381,15 +10343,15 @@
 	};
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(12);
+	module.exports = __webpack_require__(11);
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, process) {'use strict';
@@ -10748,10 +10710,10 @@
 	    });
 	  }, cleanup);
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).setImmediate, __webpack_require__(15)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12).setImmediate, __webpack_require__(14)))
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10804,12 +10766,12 @@
 	};
 	
 	// setimmediate attaches itself to the global object
-	__webpack_require__(14);
+	__webpack_require__(13);
 	exports.setImmediate = setImmediate;
 	exports.clearImmediate = clearImmediate;
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process) {"use strict";
@@ -10996,10 +10958,10 @@
 	    attachTo.setImmediate = setImmediate;
 	    attachTo.clearImmediate = clearImmediate;
 	})(typeof self === "undefined" ? typeof global === "undefined" ? undefined : global : self);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(15)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(14)))
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -11185,7 +11147,7 @@
 	};
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -19976,7 +19938,7 @@
 	}).call(undefined);
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19986,11 +19948,11 @@
 	});
 	exports.getData = undefined;
 	
-	var _data = __webpack_require__(11);
+	var _data = __webpack_require__(10);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
-	var _data3 = __webpack_require__(18);
+	var _data3 = __webpack_require__(17);
 	
 	var data = _interopRequireWildcard(_data3);
 	
@@ -20013,7 +19975,7 @@
 	}(data);
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20196,7 +20158,7 @@
 	}]);
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20209,11 +20171,11 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /*eslint-disable*/
 	
 	
-	var _ramda = __webpack_require__(16);
+	var _ramda = __webpack_require__(15);
 	
 	var _ = _interopRequireWildcard(_ramda);
 	
-	var _renderHelpers = __webpack_require__(20);
+	var _renderHelpers = __webpack_require__(19);
 	
 	var rH = _interopRequireWildcard(_renderHelpers);
 	
@@ -20287,7 +20249,7 @@
 	};
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20297,7 +20259,7 @@
 	});
 	exports.renderHistory = exports.renderInvite = exports.renderInviteText = exports.formatDate = undefined;
 	
-	var _dateFormat = __webpack_require__(21);
+	var _dateFormat = __webpack_require__(20);
 	
 	var _dateFormat2 = _interopRequireDefault(_dateFormat);
 	
@@ -20321,7 +20283,7 @@
 	};
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -20547,7 +20509,7 @@
 	})(undefined);
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20570,6 +20532,44 @@
 	var updateDom = exports.updateDom = function updateDom(el) {
 	  clearAll('.ulcontainer');
 	  (0, _jquery2.default)('.ulcontainer').append(el);
+	};
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jquery = __webpack_require__(7);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  var ids = [];
+	  (0, _jquery2.default)('.update').each(function (i, el) {
+	    return ids.push(el.id);
+	  });
+	  ids.filter(function (el) {
+	    return el !== '';
+	  }).forEach(function (el) {
+	    (0, _jquery2.default)('#' + el).click(function () {
+	      (0, _jquery2.default)('#' + el).find('hr').removeClass('update').addClass('seen');
+	      console.log('clicked');
+	    });
+	    (0, _jquery2.default)('#' + el).inViewport(function (xs) {
+	      if (xs) {
+	        console.log(xs);
+	        console.log('el', el);
+	        (0, _jquery2.default)('#' + el).addClass('animate');
+	      }
+	    });
+	  });
 	};
 
 /***/ }
