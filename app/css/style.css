@@ -30,6 +30,7 @@ li {
   margin: 10px auto;
   color: black;
   box-shadow: 2px 2px 2px 2px #888888;
+  position: relative;
 }
 
 body {
@@ -78,12 +79,14 @@ h2 {
   font-size: 15px;
   float:left;
   margin-right: 5px;
+  margin-left: 5px;
 }
 
 .time {
   font-weight: bold;
   font-size: 15px;
   float: right;
+  margin-right: 5px;
 }
 
 .lifooter {
@@ -119,6 +122,13 @@ hr.old{
   padding: 0; 
 }
 
-
+.id {
+  font-size: 15px;
+  color: gray;
+  float: left;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+}
 
 

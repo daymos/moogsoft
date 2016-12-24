@@ -111,7 +111,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 400px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n@keyframes update {\n    0% {background-color: #CC7833; }\n    100% {background-color: #E6E1DC;}\n}\n\n.animate {\n  background-color:#E6E1DC;\n  animation-name: update;\n  animation-duration: 3s;\n}\n\nul {\n  list-style: none;\n  list-style-type: none;\n  padding: 0;\n}\n\nli {\n  text-align:center;\n  margin: 10px auto;\n  color: black;\n  box-shadow: 2px 2px 2px 2px #888888;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  float: left;\n}\n\n.invite {\n  margin: 20px auto;\n  font-size: 15px;\n}\n.content-container {\n  padding: 5px;\n}\n\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n\n.vector {\n  float: left;\n  font-size: 15px;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n  float:left;\n  margin-right: 5px;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 15px;\n  float: right;\n}\n\n.lifooter {\n  padding: 2px;\n}\n\n.overlay-hidden {\n  background-color: gray;\n  display:none;\n}\n\n.overlay-show {\n  background-color: gray;\n  opacity:.1;\n  display:visible;\n}\n\nhr.update{\n  display: block;\n  height: 1px;\n  border: 0;\n  border-top: 1px solid #CC7833;\n  margin: 1em 0;\n  padding: 0; \n}\n\nhr.old{\n  display: block;\n  height: 1px;\n  border: 0;\n  border-top: 1px solid #6691AF;\n  margin: 1em 0;\n  padding: 0; \n}\n\n\n\n\n", ""]);
+	exports.push([module.id, ".container {\n  margin: 0 auto;\n  width: 400px;\n  color: #E6E1DC;\n}\n\n.old {\n  background-color: #e6e1dc;\n}\n\n@keyframes update {\n    0% {background-color: #CC7833; }\n    100% {background-color: #E6E1DC;}\n}\n\n.animate {\n  background-color:#E6E1DC;\n  animation-name: update;\n  animation-duration: 3s;\n}\n\nul {\n  list-style: none;\n  list-style-type: none;\n  padding: 0;\n}\n\nli {\n  text-align:center;\n  margin: 10px auto;\n  color: black;\n  box-shadow: 2px 2px 2px 2px #888888;\n  position: relative;\n}\n\nbody {\n  background-color: #e6e1dc;\n}\n\n\n.status{\n  font-weight: bold; \n  font-size: 15px;\n  float: left;\n}\n\n.invite {\n  margin: 20px auto;\n  font-size: 15px;\n}\n.content-container {\n  padding: 5px;\n}\n\n\nh2 {\n  text-align: center;\n}\n\n.link a {\n  color:black;\n  text-decoration: none; /* no underline */\n  font-weight: bold;\n}\n\n.details {\n  font-size: 20px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\n\n.vector {\n  float: left;\n  font-size: 15px;\n}\n\n.sender_id {\n  font-weight: bold; \n  font-size: 15px;\n  float:left;\n  margin-right: 5px;\n  margin-left: 5px;\n}\n\n.time {\n  font-weight: bold;\n  font-size: 15px;\n  float: right;\n  margin-right: 5px;\n}\n\n.lifooter {\n  padding: 2px;\n}\n\n.overlay-hidden {\n  background-color: gray;\n  display:none;\n}\n\n.overlay-show {\n  background-color: gray;\n  opacity:.1;\n  display:visible;\n}\n\nhr.update{\n  display: block;\n  height: 1px;\n  border: 0;\n  border-top: 1px solid #CC7833;\n  margin: 1em 0;\n  padding: 0; \n}\n\nhr.old{\n  display: block;\n  height: 1px;\n  border: 0;\n  border-top: 1px solid #6691AF;\n  margin: 1em 0;\n  padding: 0; \n}\n\n.id {\n  font-size: 15px;\n  color: gray;\n  float: left;\n  position: absolute;\n  left: 2px;\n  top: 2px;\n}\n\n\n", ""]);
 	
 	// exports
 
@@ -10301,6 +10301,7 @@
 	  }).forEach(function (el) {
 	    (0, _jquery2.default)('#' + el).inViewport(function (xs) {
 	      if (xs) {
+	        console.log(xs);
 	        console.log('el', el);
 	        (0, _jquery2.default)('#' + el).addClass('animate');
 	      }
@@ -20299,7 +20300,7 @@
 	};
 	
 	var renderInvite = exports.renderInvite = function renderInvite(invite) {
-	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\' id=\'' + invite.invite_id + '\' >\n  <div class=\'content-container\'>\n  <div class=\'invite\'>' + renderInviteText(invite) + '</div>\n  <div class=\'lifooter\'>\n  <span class=\'sender_id\'>' + invite.sender_id + '</span>\n  <span class=\'vector\'>  via ' + invite.vector + '</span>\n  <span class=\'time\'> ' + formatDate(invite.invite_time) + '</span>\n  <span > ' + invite.status + '</span>\n  </div>\n  </div>\n  </li>';
+	  return '<li class=\'' + (invite.isUpdate ? 'update' : 'old') + '\' id=\'' + invite.invite_id + '\' >\n  <div class=\'content-container\'>\n  <dic class=\'id\'>' + invite.invite_id + '</div>\n  <div class=\'invite\'>' + renderInviteText(invite) + '</div>\n  <div class=\'lifooter\'>\n  <span class=\'sender_id\'>' + invite.sender_id + '</span>\n  <span class=\'vector\'>  via ' + invite.vector + '</span>\n  <span class=\'time\'> ' + formatDate(invite.invite_time) + '</span>\n  <span > ' + invite.status + '</span>\n  </div>\n  </div>\n  </li>';
 	};
 	
 	// encapsulateLiInsideUl :: String DomEl -> String DomEl

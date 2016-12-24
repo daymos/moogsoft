@@ -14,6 +14,7 @@ export const renderInviteText = invite => (
 export const renderInvite = invite => (
   `<li class='${(invite.isUpdate) ? 'update' : 'old'}' id='${invite.invite_id}' >
   <div class='content-container'>
+  <dic class='id'>${invite.invite_id}</div>
   <div class='invite'>${renderInviteText(invite)}</div>
   <div class='lifooter'>
   <span class='sender_id'>${invite.sender_id}</span>
