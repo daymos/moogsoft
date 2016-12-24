@@ -4,11 +4,13 @@ import _ from 'ramda'
 
 import * as db from './db';
 import * as H from './helpers';
-import { updateDom, clearAll } from './updateViewHelpers.js';
-import * as rH from './renderHelpers.js';
+import { updateDom, clearAll } from './updateViewHelpers';
+import * as rH from './renderHelpers';
+import animate from './animation.js';
 
 // list :: Object -> undefined
 export const list = current => H.compose(
+  animate,
   updateDom,
   rH.renderHistory,
   H.genArrayOfLiComponents(rH.renderInvite),

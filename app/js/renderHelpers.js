@@ -12,7 +12,7 @@ export const renderInviteText = invite => (
 );
 
 export const renderInvite = invite => (
-  `<li class='${(invite.isUpdate) ? 'update' : 'old'}'>
+  `<li class='${(invite.isUpdate) ? 'update' : 'old'}' id='${invite.invite_id}' >
   <div class='content-container'>
   <div class='invite'>${renderInviteText(invite)}</div>
   <div class='lifooter'>

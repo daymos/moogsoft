@@ -1,5 +1,6 @@
  /*eslint-disable*/
 import '../css/style.css';
+import '../vendor/inViewport';
 
 import * as ctrls from './controllers';
 import * as dom from './updateViewHelpers';

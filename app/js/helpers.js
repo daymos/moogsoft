@@ -1,6 +1,7 @@
  /*eslint-disable*/
 import * as _ from 'ramda';
-import * as rH from './renderHelpers.js';
+
+import * as rH from './renderHelpers';
 
 export const compose = (...args) => value => args.reverse().reduce((acc, fn) => fn(acc), value);
 
