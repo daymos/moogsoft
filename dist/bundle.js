@@ -61,20 +61,12 @@
 	
 	var ctrls = _interopRequireWildcard(_controllers);
 	
-	var _updateViewHelpers = __webpack_require__(21);
-	
-	var dom = _interopRequireWildcard(_updateViewHelpers);
-	
-	var _db = __webpack_require__(16);
-	
-	var db = _interopRequireWildcard(_db);
-	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	window.onload = function () {
 	  ctrls.run();
 	  setTimeout(ctrls.fetchUpdate, 2000);
-	}; /*eslint-disable*/
+	};
 
 /***/ },
 /* 2 */
@@ -10302,9 +10294,9 @@
 	
 	var H = _interopRequireWildcard(_helpers);
 	
-	var _updateViewHelpers = __webpack_require__(21);
+	var _updateViewHelpers = __webpack_require__(19);
 	
-	var _renderHelpers = __webpack_require__(19);
+	var _renderHelpers = __webpack_require__(20);
 	
 	var rH = _interopRequireWildcard(_renderHelpers);
 	
@@ -10319,19 +10311,22 @@
 	// list :: Object -> undefined
 	var list = exports.list = function list(current) {
 	  return H.compose(_animation2.default, _updateViewHelpers.updateDom, rH.renderHistory, H.genArrayOfLiComponents(rH.renderInvite),
-	  //H.sortByDescendingTime,
+	  // H.sortByDescendingTime,
 	  H.sortByReverseInviteId, H.parse)(current);
-	}; /* eslint-disable */
+	};
+	
 	var mergeData = exports.mergeData = _ramda2.default.curry(function (history, update) {
 	  return H.compose(
-	  //   H.sortByDescendingTime,
-	  H.sortByReverseInviteId, H.trace('tracing merge  result: '), H.mergeRepeatedObjects, H.sortByInviteId, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update));
+	  // H.sortByDescendingTime,
+	  H.sortByReverseInviteId, H.mergeRepeatedObjects, H.sortByInviteId, H.concat(JSON.parse(history)), H.markUpdates)(JSON.parse(update));
 	});
 	
 	var run = exports.run = function run() {
 	  db.getData('history').fork(function (err) {
 	    return console.log(err);
-	  }, list);
+	  }, function (res) {
+	    list(res);
+	  });
 	};
 	
 	var fetchUpdate = exports.fetchUpdate = function fetchUpdate() {
@@ -19961,14 +19956,13 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// getData :: String JSON -> String url -> Task JSON
-	/* eslint-disable */
 	//  This simulate an asyn connection to db.
 	
-	var getData = exports.getData = function (data) {
+	var getData = exports.getData = function (d) {
 	  return function (path) {
 	    return new _data2.default(function (reject, resolve) {
 	      return setTimeout(function () {
-	        return resolve(data[path]);
+	        return resolve(d[path]);
 	      }, 200);
 	    });
 	  };
@@ -20168,18 +20162,13 @@
 	});
 	exports.mergeRepeatedObjects = exports.sortByDescendingTime = exports.sortByReverseInviteId = exports.sortByInviteId = exports.concat = exports.markUpdates = exports.trace = exports.genArrayOfLiComponents = exports.parse = exports.stringify = exports.compose = undefined;
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /*eslint-disable*/
-	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	var _ramda = __webpack_require__(15);
 	
-	var _ = _interopRequireWildcard(_ramda);
+	var _ramda2 = _interopRequireDefault(_ramda);
 	
-	var _renderHelpers = __webpack_require__(19);
-	
-	var rH = _interopRequireWildcard(_renderHelpers);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var compose = exports.compose = function compose() {
 	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -20231,22 +20220,24 @@
 	};
 	
 	var sortByInviteId = exports.sortByInviteId = function sortByInviteId(concatenated) {
-	  return _.sortBy(_.prop('invite_id'))(concatenated);
+	  return _ramda2.default.sortBy(_ramda2.default.prop('invite_id'))(concatenated);
 	};
 	
 	var sortByReverseInviteId = exports.sortByReverseInviteId = function sortByReverseInviteId(concatenated) {
-	  return _.sortBy(_.prop('invite_id'))(concatenated).reverse();
+	  return _ramda2.default.sortBy(_ramda2.default.prop('invite_id'))(concatenated).reverse();
 	};
 	
 	var sortByDescendingTime = exports.sortByDescendingTime = function sortByDescendingTime(arr) {
-	  return _.sortBy(_.prop('invite_time'))(arr).reverse();
+	  return _ramda2.default.sortBy(_ramda2.default.prop('invite_time'))(arr).reverse();
 	};
 	
+	/*eslint-disable */
 	var mergeRepeatedObjects = exports.mergeRepeatedObjects = function mergeRepeatedObjects(sorted) {
 	  return sorted.reduce(function (acc, el, i, arr) {
-	    return i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && !el.isUpdate ? acc.concat([_.merge(el, arr[i + 1])]) : i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && el.isUpdate ? acc.concat([_.merge(arr[i + 1], el)]) : el.invite_id === arr[i - 1].invite_id ? acc : acc.concat([el]);
+	    return i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && !el.isUpdate ? acc.concat([_ramda2.default.merge(el, arr[i + 1])]) : i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && el.isUpdate ? acc.concat([_ramda2.default.merge(arr[i + 1], el)]) : el.invite_id === arr[i - 1].invite_id ? acc : acc.concat([el]);
 	  }, []);
 	};
+	/*eslint-enable */
 
 /***/ },
 /* 19 */
@@ -20257,16 +20248,42 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.updateDom = exports.clearAll = undefined;
+	
+	var _jquery = __webpack_require__(7);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var clearAll = exports.clearAll = function clearAll(target) {
+	  return (0, _jquery2.default)(target).empty();
+	};
+	
+	var updateDom = exports.updateDom = function updateDom(el) {
+	  clearAll('.ulcontainer');
+	  (0, _jquery2.default)('.ulcontainer').append(el);
+	};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.renderHistory = exports.renderInvite = exports.renderInviteText = exports.formatDate = undefined;
 	
-	var _dateFormat = __webpack_require__(20);
+	var _dateformat = __webpack_require__(21);
 	
-	var _dateFormat2 = _interopRequireDefault(_dateFormat);
+	var _dateformat2 = _interopRequireDefault(_dateformat);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var formatDate = exports.formatDate = function formatDate(date) {
-	  return (0, _dateFormat2.default)(date, 'dddd, h:MM:ss TT');
+	  return (0, _dateformat2.default)(date, 'dddd, h:MM:ss TT');
 	};
 	
 	var renderInviteText = exports.renderInviteText = function renderInviteText(invite) {
@@ -20283,7 +20300,7 @@
 	};
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -20509,32 +20526,6 @@
 	})(undefined);
 
 /***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.updateDom = exports.clearAll = undefined;
-	
-	var _jquery = __webpack_require__(7);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var clearAll = exports.clearAll = function clearAll(target) {
-	  return (0, _jquery2.default)(target).empty();
-	};
-	
-	var updateDom = exports.updateDom = function updateDom(el) {
-	  clearAll('.ulcontainer');
-	  (0, _jquery2.default)('.ulcontainer').append(el);
-	};
-
-/***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20560,12 +20551,9 @@
 	  }).forEach(function (el) {
 	    (0, _jquery2.default)('#' + el).click(function () {
 	      (0, _jquery2.default)('#' + el).find('hr').removeClass('update').addClass('seen');
-	      console.log('clicked');
 	    });
 	    (0, _jquery2.default)('#' + el).inViewport(function (xs) {
 	      if (xs) {
-	        console.log(xs);
-	        console.log('el', el);
 	        (0, _jquery2.default)('#' + el).addClass('animate');
 	      }
 	    });
