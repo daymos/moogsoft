@@ -1,7 +1,4 @@
- /*eslint-disable*/
-import * as _ from 'ramda';
-
-import * as rH from './renderHelpers';
+import _ from 'ramda';
 
 export const compose = (...args) => value => args.reverse().reduce((acc, fn) => fn(acc), value);
 
@@ -16,7 +13,7 @@ export const parse = data => ((typeof data === 'string') ? JSON.parse(data) : da
 export const genArrayOfLiComponents = fn => data => data.map(fn);
 
 export const trace = msg => val => {
-  console.log(msg, typeof val , val);
+  console.log(msg, typeof val, val);
   return val;
 };
 
@@ -29,10 +26,12 @@ export const concat = first => second => first.concat(second);
 
 export const sortByInviteId = concatenated => _.sortBy(_.prop('invite_id'))(concatenated);
 
-export const sortByReverseInviteId = concatenated => _.sortBy(_.prop('invite_id'))(concatenated).reverse();
+export const sortByReverseInviteId = concatenated => _.sortBy(_.prop('invite_id'))(concatenated)
+  .reverse();
 
-export const sortByDescendingTime = arr  => _.sortBy(_.prop('invite_time'))(arr).reverse();
+export const sortByDescendingTime = arr => _.sortBy(_.prop('invite_time'))(arr).reverse();
 
+  /*eslint-disable */
 export const mergeRepeatedObjects = sorted => (
   sorted.reduce((acc, el, i, arr) => (
     (i < arr.length - 1 && el.invite_id === arr[i + 1].invite_id && !el.isUpdate) ? acc.concat([_.merge(el, arr[i + 1])]) :
@@ -41,4 +40,4 @@ export const mergeRepeatedObjects = sorted => (
   )
   , [])
 );
- 
+  /*eslint-enable */

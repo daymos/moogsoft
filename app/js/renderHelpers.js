@@ -1,4 +1,4 @@
-import dateFormat from 'dateFormat';
+import dateFormat from 'dateformat';
 
 export const formatDate = date => dateFormat(date, 'dddd, h:MM:ss TT');
 
